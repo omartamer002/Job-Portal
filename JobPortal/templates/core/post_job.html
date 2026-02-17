@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<main>
+  <!-- Hero Area Start-->
+  <div class="slider-area ">
+    <div class="single-slider section-overly slider-height2 d-flex align-items-center"
+      data-background="{% static 'assets/img/hero/about.jpg' %}">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero-cap text-center">
+              <h2>Post a Job</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Area End -->
+
+  <!-- Post Job Form Start -->
+  <div class="job-listing-area pt-120 pb-120">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-10">
+          <div class="job-category-listing mb-50">
+            <div class="single-listing">
+              <div class="small-section-tittle2 text-center mb-45">
+                <h4>Enter Job Details</h4>
+              </div>
+
+              <form action="{% url 'post_job' %}" method="POST" class="form-contact" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-12 text-center mb-3">
+                    <h5>Company Information</h5>
+                    <hr>
+                  </div>
+                  {% for field in company_form %}
+                  <div
+                    class="{% if field.name == 'company_logo' or field.name == 'company_location' %}col-12{% else %}col-sm-6{% endif %}">
+                    <div class="form-group">
+                      {{ field.label_tag }}
+                      {{ field }}
+                      {% if field.errors %}
+                      <div class="alert alert-danger mt-1">
+                        {{ field.errors }}
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% endfor %}
+
+                  <div class="col-12 text-center mb-3 mt-4">
+                    <h5>Job Information</h5>
+                    <hr>
+                  </div>
+                  {% for field in job_form %}
+                  <div
+                    class="{% if field.name == 'job_details' or field.name == 'job_requirements' or field.name == 'job_location' %}col-12{% else %}col-sm-6{% endif %}">
+                    <div class="form-group">
+                      {{ field.label_tag }}
+                      {{ field }}
+                      {% if field.errors %}
+                      <div class="alert alert-danger mt-1">
+                        {{ field.errors }}
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+                <div class="form-group mt-3 text-center">
+                  <button type="submit" class="button button-contactForm boxed-btn">Post Job</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Post Job Form End -->
+</main>
+{% endblock %}

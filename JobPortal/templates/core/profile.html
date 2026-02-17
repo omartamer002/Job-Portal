@@ -1,0 +1,95 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<main>
+  <!-- Hero Area Start-->
+  <div class="slider-area ">
+    <div class="single-slider section-overly slider-height2 d-flex align-items-center"
+      data-background="{% static 'assets/img/hero/about.jpg' %}">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero-cap text-center">
+              <h2>My Profile</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Area End -->
+
+  <!-- Profile section start -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="contact-title text-center">Welcome, {{ request.user.username }}</h2>
+        </div>
+        <div class="col-lg-8 mx-auto">
+          <div class="job-category-listing mb-50 p-4" style="background: #f4f4f4; border-radius: 10px;">
+            <div class="single-listing">
+              <div class="text-center mb-4">
+                {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" class="rounded-circle mb-3"
+                  style="width: 150px; height: 150px; object-fit: cover;">
+                {% else %}
+                <img src="{% static 'assets/img/icon/job-list1.png' %}" alt="Default Profile"
+                  class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                {% endif %}
+                <h3>{{ profile.full_name|default:profile.user.username }}</h3>
+                <p class="badge bg-primary text-white">{{ profile.get_user_type_display }}</p>
+              </div>
+
+              <hr>
+
+              {% if profile.user_type == 'employee' %}
+              <div class="profile-details mt-4">
+                <div class="mb-3">
+                  <strong>Full Name:</strong> {{ profile.full_name }}
+                </div>
+                <div class="mb-3">
+                  <strong>Username:</strong> {{ profile.user.username }}
+                </div>
+                <div class="mb-3">
+                  <strong>Email:</strong> {{ profile.user.email }}
+                </div>
+                <div class="mb-3">
+                  <strong>Job Title:</strong> {{ profile.job_title }}
+                </div>
+                {% if profile.cv %}
+                <div class="mb-3">
+                  <strong>CV:</strong> <a href="{{ profile.cv.url }}" class="genric-btn link radius"
+                    target="_blank">View CV</a>
+                </div>
+                {% endif %}
+              </div>
+              {% else %}
+              <div class="profile-details mt-4">
+                <div class="mb-3">
+                  <strong>Company Name:</strong> {{ profile.company_name }}
+                </div>
+                <div class="mb-3">
+                  <strong>Company Email:</strong> {{ profile.company_email }}
+                </div>
+                <div class="mb-3">
+                  <strong>Company Website:</strong> <a href="{{ profile.company_website }}" target="_blank">{{
+                    profile.company_website }}</a>
+                </div>
+              </div>
+              {% endif %}
+              <div class="text-center mt-4">
+                <a href="{% url 'logout' %}" class="genric-btn danger radius">Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Profile section end -->
+</main>
+{% endblock %}

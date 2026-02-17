@@ -1,0 +1,167 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<main>
+  <!-- Hero Area Start-->
+  <div class="slider-area ">
+    <div class="single-slider section-overly slider-height2 d-flex align-items-center"
+      data-background="{% static 'assets/img/hero/about.jpg' %}">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero-cap text-center">
+              <h2>Register</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Area End -->
+
+  <!-- Register Form Start -->
+  <div class="job-listing-area pt-120 pb-120">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-8">
+          <div class="job-category-listing mb-50">
+            <div class="single-listing">
+              <div class="small-section-tittle2 text-center mb-45">
+                <h4>Are you an employer or an employee?</h4>
+                <div class="button-group-area mt-3">
+                  <button id="btn-employee" class="genric-btn primary radius"
+                    onclick="showForm('employee')">Employee</button>
+                  <button id="btn-employer" class="genric-btn primary-border radius"
+                    onclick="showForm('employer')">Employer</button>
+                </div>
+              </div>
+
+              <!-- Employee Form -->
+              <form id="form-employee" action="#" method="POST" class="form-contact" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="user_type" value="employee">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="full_name" type="text" placeholder="Full Name" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="username" type="text" placeholder="Username" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="email" type="email" placeholder="Email Address" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="job_title" type="text" placeholder="Job Title" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label>Profile Picture</label>
+                      <input class="form-control" name="profile_picture" type="file" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label>Your CV</label>
+                      <input class="form-control" name="cv" type="file" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="password" type="password" placeholder="Password" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="confirm_password" type="password" placeholder="Confirm Password"
+                        required>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <button type="submit" class="button button-contactForm boxed-btn">Register as Employee</button>
+                </div>
+              </form>
+
+              <!-- Employer Form -->
+              <form id="form-employer" action="#" method="POST" class="form-contact" style="display: none;">
+                {% csrf_token %}
+                <input type="hidden" name="user_type" value="employer">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="company_name" type="text" placeholder="Company Name" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="company_email" type="email" placeholder="Company Email"
+                        required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="company_website" type="url" placeholder="Company Website"
+                        required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="password" type="password" placeholder="Password" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="confirm_password" type="password" placeholder="Confirm Password"
+                        required>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <button type="submit" class="button button-contactForm boxed-btn">Register as Employer</button>
+                </div>
+              </form>
+
+              <div class="mt-40 text-center">
+                <p>Already have an account? <a href="{% url 'login' %}" class="theme-color">Login here</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Register Form End -->
+</main>
+
+<script>
+  function showForm(type) {
+    const employeeForm = document.getElementById('form-employee');
+    const employerForm = document.getElementById('form-employer');
+    const employeeBtn = document.getElementById('btn-employee');
+    const employerBtn = document.getElementById('btn-employer');
+
+    if (type === 'employee') {
+      employeeForm.style.display = 'block';
+      employerForm.style.display = 'none';
+      employeeBtn.className = 'genric-btn primary radius';
+      employerBtn.className = 'genric-btn primary-border radius';
+    } else {
+      employeeForm.style.display = 'none';
+      employerForm.style.display = 'block';
+      employeeBtn.className = 'genric-btn primary-border radius';
+      employerBtn.className = 'genric-btn primary radius';
+    }
+  }
+</script>
+{% endblock %}

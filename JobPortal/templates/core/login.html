@@ -1,0 +1,71 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<main>
+  <!-- Hero Area Start-->
+  <div class="slider-area ">
+    <div class="single-slider section-overly slider-height2 d-flex align-items-center"
+      data-background="{% static 'assets/img/hero/about.jpg' %}">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero-cap text-center">
+              <h2>Login</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Hero Area End -->
+
+  <!-- Login Form Start -->
+  <div class="job-listing-area pt-120 pb-120">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-6 col-lg-8">
+          <div class="job-category-listing mb-50">
+            <div class="single-listing">
+              <div class="small-section-tittle2 text-center mb-45">
+                <h4>Login to Your Account</h4>
+              </div>
+
+              <form action="#" method="POST" class="form-contact">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="username" id="username" type="text"
+                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username or Email'"
+                        placeholder="Username or Email" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="form-group">
+                      <input class="form-control" name="password" id="password" type="password"
+                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" placeholder="Password"
+                        required>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <button type="submit" class="button button-contactForm boxed-btn">Login</button>
+                </div>
+              </form>
+
+              <div class="mt-40 text-center">
+                <p>Don't have an account? <a href="{% url 'register' %}" class="theme-color">Register here</a></p>
+                <p><a href="#" class="theme-color">Forgot Password?</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Login Form End -->
+</main>
+{% endblock %}
